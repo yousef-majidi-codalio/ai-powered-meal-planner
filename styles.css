@@ -1,0 +1,82 @@
+@import "tailwindcss";
+/* Design tokens mapped to CSS variables for global theming */
+:root {
+  /* Brand colors (dark mode default) */
+  --color-primary: #4F46E5; /* Indigo - primary actions */
+  --color-primary-light: #818CF8; /* Indigo light */
+  --color-secondary: #1E6F78; /* Teal - secondary */
+  --color-secondary-light: #38B3C6; /* Teal light */
+  --color-accent: #B45309; /* Amber - accent/highlight */
+  --color-accent-light: #F59E0B; /* Amber light */
+
+  /* Neutrals */
+  --color-background: #0B1220; /* Deep slate navy */
+  --color-surface: #111827; /* Panel/card surface */
+  --color-text: #E5E7EB; /* High-contrast text in dark */
+  --color-border: #334155; /* Subtle borders/dividers */
+  --color-ring: #1F2937; /* Focus rings/outlines */
+
+  /* Shadows */
+  --shadow-color: 79, 70, 229; /* RGB of primary (4F46E5) */
+
+  /* Gradients (generate from assigned brand colors) */
+  --gradient-primary-accent: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  --gradient-primary-secondary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+}
+
+/* Light theme overrides */
+:root[data-theme='light'] {
+  --color-background: #F8FAFC; /* from #0B1220 light */
+  --color-surface: #FFFFFF; /* from #111827 light */
+  --color-text: #0F172A; /* from #E5E7EB light */
+  --color-border: #CBD5E1; /* from #334155 light */
+  --color-ring: #CBD5E1; /* subtle ring on light */
+}
+
+/* Global element resets and base styles */
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
+  border-radius: 4px;
+}
+
+/* Utility helpers that may be reused */
+.shadow-primary {
+  box-shadow: 0 10px 20px rgba(var(--shadow-color), 0.25);
+}
+
+.glass-surface {
+  background: color-mix(in oklab, var(--color-surface) 92%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+/***** Component tokens *****/
+/**** Inputs ****/
+.input-focus-primary:focus-within {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
