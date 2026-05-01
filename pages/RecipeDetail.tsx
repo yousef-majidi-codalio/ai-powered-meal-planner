@@ -1,108 +1,132 @@
 import React from "react";
-import { AspectRatio } from "../components/ui/aspect-ratio";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../components/ui/accordion";
 import { Badge } from "../components/ui/badge";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "../components/ui/breadcrumb";
 import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
-import { Progress } from "../components/ui/progress";
-import { ScrollArea } from "../components/ui/scroll-area";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Separator } from "../components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
+import { ToggleGroup, ToggleGroupItem } from "../components/ui/toggle-group";
+
+import { useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 export default function RecipeDetail() {
+    const { id } = useParams();
+    const ingredients = [
+      { item: 'Olive oil', qty: '2 tbsp' },
+      { item: 'Garlic', qty: '2 cloves' },
+      { item: 'Cherry tomatoes', qty: '1 cup' },
+      { item: 'Basil', qty: 'a few leaves' },
+      { item: 'Pasta', qty: '200 g' }
+    ];
+    const steps = [
+      'Boil pasta until al dente and drain.',
+      'Sauté garlic in olive oil, add tomatoes.',
+      'Toss pasta with sauce and top with basil.'
+    ];
+    const [rating, setRating] = useState<string | "">("");
+    const [week, setWeek] = useState("1");
+    const [meal, setMeal] = useState("dinner");
+    const [added, setAdded] = useState(false);
   return (
-    <div className="bg-background text-foreground min-h-screen w-full min-w-0 overflow-x-hidden">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6 w-full min-w-0">
-          <div className="flex flex-col gap-6">
-      <Breadcrumb>
-      <BreadcrumbList>
-      <BreadcrumbItem><BreadcrumbLink href="/explore">Explore</BreadcrumbLink></BreadcrumbItem>
-      <BreadcrumbSeparator />
-      <BreadcrumbItem>Recipe</BreadcrumbItem>
-      </BreadcrumbList>
-      </Breadcrumb>
-
+   <div className="bg-background text-foreground w-full min-w-0 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col gap-6 w-full min-w-0">
+          <section className="py-4 grid gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4 items-start">
       <Card className="overflow-hidden">
-      <div className="bg-muted">
-      <AspectRatio ratio={16/9}>
-      <img src="https://pixabay.com/get/ge9321e9e2b2580bed72d32e729de9da91b807b63e17c906f13c925c54131c818eb83e3409b0f808ff2bbbdb4a137a0ab996785ac1518a7f1513bb318978382af_640.jpg" alt="Recipe" className="h-full w-full object-cover" />
-      </AspectRatio>
+      <div className="aspect-video w-full bg-muted overflow-hidden">
+      <img src="https://pixabay.com/get/g3aaef9a32348fef07c5767a972d96be92d10dfa850b1a95208d28c77aafb5c67522847e77e655bf11407684d6ff4f174a71f55faf2ff791e6bc95c93524f3249_640.jpg" alt="recipe" className="h-full w-full object-cover" />
       </div>
-      <CardHeader>
-      <div className="flex items-center justify-between">
-      <div>
-      <CardTitle>Lemon Herb Chicken</CardTitle>
-      <CardDescription>Bright, zesty, and protein‑packed.</CardDescription>
-      </div>
-      <div className="flex items-center gap-2">
-      <Badge>30 min</Badge>
-      <Button>Add to plan</Button>
-      </div>
-      </div>
+      <CardHeader className="pb-2">
+      <CardTitle className="flex items-center justify-between">
+      <span>Recipe #{id}</span>
+      <div className="flex items-center gap-2"><Badge>Healthy</Badge><Badge variant="secondary">30 min</Badge></div>
+      </CardTitle>
       </CardHeader>
-      <CardContent className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_320px]">
-      <div className="flex flex-col gap-4">
-      <Tabs defaultValue="ingredients">
-      <TabsList>
-      <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
-      <TabsTrigger value="steps">Steps</TabsTrigger>
-      </TabsList>
-      <TabsContent value="ingredients">
-      <ScrollArea className="max-h-72 rounded-lg border">
+      <CardContent className="text-sm text-muted-foreground">
+      A delicious AI-suggested dish tailored to your preferences.
+      </CardContent>
+      </Card>
+      <div className="grid gap-3">
+      <div className="grid grid-cols-2 gap-2">
+      <img src="https://pixabay.com/get/g998652dafa83df856425fa2b6931907df74af6f2d905f1e201cb81920cad0aabcf554bdd914e31fbae5ff9c9a632385a5187a9a5ed68499efc4cdd8e3de4605c_640.jpg" alt="thumb" className="rounded-lg h-28 w-full object-cover" />
+      <img src="https://pixabay.com/get/gae675d5662e2a9a8d5ddd1c32cd72fc426fdd3569c9734066061a082645f63af64cc7fa464619bd2120960ad9a7a02cdb226ebec04cb3065a73034d30a8a3507_640.jpg" alt="thumb" className="rounded-lg h-28 w-full object-cover" />
+      </div>
+      <Button asChild variant="outline"><Link to="/recipes">Back to recipes</Link></Button>
+      </div>
+      </div>
+      </section>
+  <section className="py-2 grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+      <div className="overflow-x-auto">
+      <h3 className="text-lg font-semibold mb-2">Ingredients</h3>
       <Table>
       <TableHeader>
       <TableRow>
-      <TableHead>Ingredient</TableHead>
-      <TableHead>Amount</TableHead>
+      <TableHead>Item</TableHead>
+      <TableHead>Qty</TableHead>
       </TableRow>
       </TableHeader>
       <TableBody>
-      {["Chicken Breast","Lemon","Olive Oil","Garlic","Parsley"].map((ing, i) => (
-      <TableRow key={ing}>
-      <TableCell>{ing}</TableCell>
-      <TableCell>{["2 lbs","1","2 tbsp","2 cloves","1/4 cup"][i]}</TableCell>
+      {ingredients.map((row) => (
+      <TableRow key={row.item}>
+      <TableCell>{row.item}</TableCell>
+      <TableCell>{row.qty}</TableCell>
       </TableRow>
       ))}
       </TableBody>
       </Table>
-      </ScrollArea>
-      </TabsContent>
-      <TabsContent value="steps">
-      <div className="rounded-lg border p-3 text-sm text-muted-foreground space-y-2">
-      {["Marinate chicken with lemon, oil, garlic.","Preheat grill to medium‑high.","Grill 5–6 min per side.","Rest, slice, and garnish with parsley."].map((s, i) => (
-      <div key={i}>
-      <div className="font-medium text-foreground">Step {i+1}</div>
-      <div>{s}</div>
-      {i < 3 && <Separator className="my-2" />}
       </div>
+      <div>
+      <h3 className="text-lg font-semibold mb-2">Instructions</h3>
+      <Accordion type="single" collapsible>
+      {steps.map((s, i) => (
+      <AccordionItem key={i} value={`s-${i}`}>
+      <AccordionTrigger>Step {i+1}</AccordionTrigger>
+      <AccordionContent>{s}</AccordionContent>
+      </AccordionItem>
       ))}
+      </Accordion>
       </div>
-      </TabsContent>
-      </Tabs>
+      </section>
+  <section className="py-2 grid gap-4">
+      <div className="grid gap-2">
+      <div className="text-sm text-muted-foreground">Rate this recipe</div>
+      <ToggleGroup type="single" value={rating} onValueChange={(v)=>setRating(v)} className="flex gap-2">
+      {["1","2","3","4","5"].map((n) => (
+      <ToggleGroupItem key={n} value={n} className="px-3 py-1 rounded border data-[state=on]:bg-secondary">{n}</ToggleGroupItem>
+      ))}
+      </ToggleGroup>
+      <div className="text-sm">Your rating: {rating || '—'}</div>
       </div>
-      <div className="flex flex-col gap-4">
-      <Card>
-      <CardHeader><CardTitle className="text-base">Nutrition facts</CardTitle></CardHeader>
-      <CardContent className="space-y-3">
-      <div>
-      <div className="mb-1 text-sm">Calories</div>
-      <Progress value={68} />
+      <Dialog>
+      <DialogTrigger asChild>
+      <Button variant="secondary">Add to plan</Button>
+      </DialogTrigger>
+      <DialogContent>
+      <DialogHeader><DialogTitle>Add to week</DialogTitle></DialogHeader>
+      <div className="grid gap-3">
+      <Select value={week} onValueChange={setWeek}>
+      <SelectTrigger><SelectValue placeholder="Select week"/></SelectTrigger>
+      <SelectContent className="bg-popover text-popover-foreground">
+      {Array.from({length: 6}).map((_,i) => <SelectItem key={i} value={String(i+1)}>{`Week ${i+1}`}</SelectItem>)}
+      </SelectContent>
+      </Select>
+      <Select value={meal} onValueChange={setMeal}>
+      <SelectTrigger><SelectValue placeholder="Meal"/></SelectTrigger>
+      <SelectContent className="bg-popover text-popover-foreground">
+      <SelectItem value="breakfast">Breakfast</SelectItem>
+      <SelectItem value="lunch">Lunch</SelectItem>
+      <SelectItem value="dinner">Dinner</SelectItem>
+      </SelectContent>
+      </Select>
+      <Button onClick={()=>setAdded(true)}>Add</Button>
+      {added && <div className="text-sm text-muted-foreground">Added to week {week} • {meal}</div>}
       </div>
-      <div>
-      <div className="mb-1 text-sm">Protein</div>
-      <Progress value={72} />
-      </div>
-      <div>
-      <div className="mb-1 text-sm">Fat</div>
-      <Progress value={45} />
-      </div>
-      </CardContent>
-      </Card>
-      </div>
-      </CardContent>
-      </Card>
-      </div>
+      </DialogContent>
+      </Dialog>
+      </section>
       </div>
     </div>
   );

@@ -4,15 +4,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Landing from "./pages/Landing";
 import MealPlan from "./pages/MealPlan";
-import Explore from "./pages/Explore";
+import MealPlanCurrent from "./pages/MealPlanCurrent";
+import MealPlanGenerate from "./pages/MealPlanGenerate";
+import MealPlanHistory from "./pages/MealPlanHistory";
+import Recipes from "./pages/Recipes";
+import RecipesDiscover from "./pages/RecipesDiscover";
+import RecipesSaved from "./pages/RecipesSaved";
 import RecipeDetail from "./pages/RecipeDetail";
 import ShoppingList from "./pages/ShoppingList";
 import Profile from "./pages/Profile";
-import Preferences from "./pages/Preferences";
-import SavedRecipes from "./pages/SavedRecipes";
-import Pantry from "./pages/Pantry";
-import SubscriptionManagement from "./pages/SubscriptionManagement";
-import Rewards from "./pages/Rewards";
+import ProfileEdit from "./pages/ProfileEdit";
+import ProfileSettings from "./pages/ProfileSettings";
+import PremiumInsights from "./pages/PremiumInsights";
 
 function App() {
   return (
@@ -22,15 +25,18 @@ function App() {
         <Route element={<Layout />}>
                 <Route path="/" element={<Landing />} />
       <Route path="/meal-plan" element={<MealPlan />} />
-      <Route path="/explore" element={<Explore />} />
-      <Route path="/explore/recipe-detail" element={<RecipeDetail />} />
+      <Route path="/meal-plan/current" element={<MealPlanCurrent />} />
+      <Route path="/meal-plan/generate" element={<MealPlanGenerate />} />
+      <Route path="/meal-plan/history" element={<MealPlanHistory />} />
+      <Route path="/recipes" element={<Recipes />} />
+      <Route path="/recipes/discover" element={<RecipesDiscover />} />
+      <Route path="/recipes/saved" element={<RecipesSaved />} />
+      <Route path="/recipes/:id" element={<RecipeDetail />} />
       <Route path="/shopping-list" element={<ShoppingList />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/profile/preferences" element={<Preferences />} />
-      <Route path="/profile/saved-recipes" element={<SavedRecipes />} />
-      <Route path="/pantry" element={<Pantry />} />
-      <Route path="/profile/subscription" element={<SubscriptionManagement />} />
-      <Route path="/profile/rewards" element={<Rewards />} />
+      <Route path="/profile/edit" element={<ProfileEdit />} />
+      <Route path="/profile/settings" element={<ProfileSettings />} />
+      <Route path="/premium-insights" element={<PremiumInsights />} />
         </Route>
       </Routes>
     </BrowserRouter>
